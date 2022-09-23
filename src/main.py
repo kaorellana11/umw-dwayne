@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     #cosmetic shit
     pygame.display.set_caption("Dwayneson's Pancake Persuit")
-    icon = pygame.image.load('image-files\dwayneson.png')
+    icon = pygame.image.load('..\images\dwayneson.png')
     pygame.display.set_icon(icon)
 
 
