@@ -7,10 +7,15 @@ if __name__ == "__main__":
     #initialize pygame
     pygame.init()
     clock = pygame.time.Clock()
-
+    WINDOW_SIZE = (520, 520)
 
     #create the screen
-    screen = pygame.display.set_mode((520, 520))
+    screen = pygame.display.set_mode(WINDOW_SIZE)
+
+    
+    background = pygame.image.load('..\images\path.png')
+    pygame.transform.scale(background, WINDOW_SIZE)
+    background_box = screen.get_rect()
 
 
     #cosmetic shit
@@ -26,6 +31,25 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
 
-        screen.fill((100, 100 ,100))
+
+        #Controls
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                pass
+            if event.key == pygame.K_RIGHT or event.key == ord(w):
+                pass
+            if event.key == pygame.K_UP or event.key == ord('w'):
+                pass
+        if event.type == pygame.KEYUP:
+            #fill with opposite of previous if statement
+            pass
+
+        screen.blit(background, background_box)
         pygame.display.update()
         clock.tick_busy_loop(60)
+        
+
+
+
+
+## Start counter on 9/27/2022  Number of times kevin has put computer into sleep mode : 4
