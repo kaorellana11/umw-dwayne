@@ -4,17 +4,20 @@ import pygame
 
 if __name__ == "__main__":
         
+    WINDOW_SIZE = (520, 520)
+    
+    
     #initialize pygame
     pygame.init()
     clock = pygame.time.Clock()
-    WINDOW_SIZE = (520, 520)
+    
 
     #create the screen
     screen = pygame.display.set_mode(WINDOW_SIZE)
 
     
     background = pygame.image.load('..\images\path.png')
-    pygame.transform.scale(background, WINDOW_SIZE)
+    background = pygame.transform.scale(background, WINDOW_SIZE)
     background_box = screen.get_rect()
 
 
