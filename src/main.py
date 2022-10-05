@@ -1,5 +1,5 @@
 import pygame
-#import player
+import player
 
 
 if __name__ == "__main__":
@@ -26,6 +26,12 @@ if __name__ == "__main__":
     icon = pygame.image.load('..\images\dwayneson.png')
     pygame.display.set_icon(icon)
 
+    dwayne = player.Player()
+    player.rect.x = 0
+    player.rect.y = 0
+    player_list = pygame.sprite.Group
+    player_list.add(player)
+
 
     #Game Loop
     running = True
@@ -39,15 +45,18 @@ if __name__ == "__main__":
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT or event.key == ord('a'):
                 pass
-            if event.key == pygame.K_RIGHT or event.key == ord(w):
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
                 pass
             if event.key == pygame.K_UP or event.key == ord('w'):
+                pass
+            if event.key == pygame.K_DOWN or event.key == ord('s'):
                 pass
         if event.type == pygame.KEYUP:
             #fill with opposite of previous if statement
             pass
 
         screen.blit(background, background_box)
+        player_list.draw(screen)
         pygame.display.update()
         clock.tick_busy_loop(60)
         
