@@ -16,21 +16,21 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(WINDOW_SIZE)
 
     
-    background = pygame.image.load('..\images\path.png')
+    background = pygame.image.load('..\images\path.png').convert()
     background = pygame.transform.scale(background, WINDOW_SIZE)
     background_box = screen.get_rect()
 
 
-    #cosmetic shit
+    #Titlebar stuff
     pygame.display.set_caption("Dwayneson's Pancake Persuit")
-    icon = pygame.image.load('..\images\dwayneson.png')
+    icon = pygame.image.load('..\images\dwayneson.png').convert()
     pygame.display.set_icon(icon)
 
     dwayne = player.Player()
-    player.rect.x = 0
-    player.rect.y = 0
-    player_list = pygame.sprite.Group
-    player_list.add(player)
+    dwayne.rect.x = 0
+    dwayne.rect.y = 0
+    dwayne_list = pygame.sprite.Group
+    dwayne_list.add(player)
 
 
     #Game Loop
@@ -56,7 +56,7 @@ if __name__ == "__main__":
             pass
 
         screen.blit(background, background_box)
-        player_list.draw(screen)
+        dwayne_list.draw(screen)
         pygame.display.update()
         clock.tick_busy_loop(60)
         
@@ -64,4 +64,4 @@ if __name__ == "__main__":
 
 
 
-## Start counter on 9/27/2022  Number of times kevin has put computer into sleep mode : 4
+## Start counter on 9/27/2022  Number of times kevin has put computer into sleep mode : 5
