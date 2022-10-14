@@ -1,4 +1,4 @@
-.venv/
+venv/
 
-.src/
+src/
     .__pycache__/
