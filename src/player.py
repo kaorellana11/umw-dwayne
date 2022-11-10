@@ -3,19 +3,6 @@ from pygame import sprite
 import pygame
 import os
 
-
-def load_anim_array(self, num, arr, sq_size, prefix):
-    img = pygame.image.load(os.path.join("../images", "walk", prefix + str(num) + '.png')).convert()
-    arr.append(img)
-    self.image = arr[0]
-    self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
-    self.rect = self.image.get_rect()
-    
-    
-
-
-
-
 class Player(pygame.sprite.Sprite):
 
 
@@ -34,10 +21,31 @@ class Player(pygame.sprite.Sprite):
         self.up_images = []
         self.dir = "d" #indicates last direction that the sprite moved in
 
+
+        #gets highest value of a given sprite, used for the range in the loop
+        imgs_path = "../images/walk"
+        dir_list = os.listdir(imgs_path)
+        self.g_num = 0; #number of sprites per anim cycle
+        self.cycle_count = 0 #counts number of anim cycles
+
+        #finds the amount of files per direction in anim cycle
+        for file in dir_list:
+            file_str = str(file)
+            num = int(file[-5])
+
+            if (num > self.g_num):
+                self.g_num = num
+
+            if (num == 0):
+                self.cycle_count += 1
+
         
-        for i in range(4):
+        print(self.cycle_count)
+        print(self.g_num)
+
+        for i in range(self.cycle_count+1):
             num = i
-            if (i == 3):
+            if (i == self.g_num+1):
                 num = 0
             img = pygame.image.load(os.path.join("../images", "walk", "PH_right_" + str(num) + '.png')).convert()
             self.x_images.append(img)
@@ -67,7 +75,7 @@ class Player(pygame.sprite.Sprite):
     def update_pos(self):
         
         #ani decides speed of animation cycle
-        ani = 10
+        ani = 20
 
         sprites_num = len(self.x_images) - 1
 

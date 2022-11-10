@@ -1,11 +1,14 @@
 import pygame
 import player
-
+import pickle
+import os
 
 if __name__ == "__main__":
         
     WIDTH = HEIGHT = 525
     sq_size = WIDTH/25
+
+    save_path = "..\saves\\"
     
     
     
@@ -43,9 +46,18 @@ if __name__ == "__main__":
 
     #Game Loop
     running = True
-    while running:
+    while running:        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                #PUT PIKL STUFF BETWEEN HERE
+
+                '''
+                if os.path.exists("../saves/autosave.pkl"):
+                    os.remove("../saves/autosave.pkl")
+                pickle.dump([dwayne.rect.x, dwayne.rect.y], ../saves/autosave.pkl)
+                '''
+
+                #PUT PIKL STUFF BETWEEN HERE
                 running = False
                 entity_list.append(dwayne)
 
