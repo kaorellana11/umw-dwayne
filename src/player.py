@@ -20,6 +20,8 @@ class Player(pygame.sprite.Sprite):
         self.down_images = []
         self.up_images = []
         self.dir = "d" #indicates last direction that the sprite moved in
+        
+        ALPHA = (0, 0, 0)
 
 
         #gets highest value of a given sprite, used for the range in the loop
@@ -48,18 +50,24 @@ class Player(pygame.sprite.Sprite):
             if (i == self.g_num+1):
                 num = 0
             img = pygame.image.load(os.path.join("../images", "walk", "PH_right_" + str(num) + '.png')).convert()
+            img.convert_alpha()
+            img.set_colorkey(ALPHA)
             self.x_images.append(img)
             self.image = self.x_images[0]
             self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
             self.rect = self.image.get_rect()
 
             img = pygame.image.load(os.path.join("../images", "walk", "PH_down_" + str(num) + '.png')).convert()
+            img.convert_alpha()
+            img.set_colorkey(ALPHA)
             self.down_images.append(img)
             self.image = self.down_images[0]
             self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
             self.rect = self.image.get_rect()
 
             img = pygame.image.load(os.path.join("../images", "walk", "PH_up_" + str(num) + ".png")).convert()
+            img.convert_alpha()
+            img.set_colorkey(ALPHA)
             self.up_images.append(img)
             self.image = self.up_images[0]
             self.image = pygame.transform.scale(self.image, [sq_size, sq_size])

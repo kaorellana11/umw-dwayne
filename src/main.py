@@ -39,6 +39,8 @@ if __name__ == "__main__":
     dwayne = player.Player(sq_size)
     dwayne.rect.x = 0
     dwayne.rect.y = 0
+    if os.path.exists("../saves/autosave.pkl",):
+        dwayne.rect.x, dwayne.rect.y = pickle.load(open('../saves/autosave.pkl','rb'))
     dwayne_list = pygame.sprite.Group()
     dwayne_list.add(dwayne)
 
@@ -51,11 +53,13 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 #PUT PIKL STUFF BETWEEN HERE
 
-                '''
+                
                 if os.path.exists("../saves/autosave.pkl"):
                     os.remove("../saves/autosave.pkl")
-                pickle.dump([dwayne.rect.x, dwayne.rect.y], ../saves/autosave.pkl)
-                '''
+                pickle.dump([dwayne.rect.x, dwayne.rect.y], open('../saves/autosave.pkl','wb'))
+                print("Your data has been saved")
+                
+                
 
                 #PUT PIKL STUFF BETWEEN HERE
                 running = False
