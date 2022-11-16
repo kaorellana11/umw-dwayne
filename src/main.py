@@ -1,5 +1,5 @@
 import pygame
-import player
+import entity
 import pickle
 import os
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
 
 
-    dwayne = player.Player(sq_size)
+    dwayne = entity.Entity(sq_size, "../images/walk")
     dwayne.rect.x = 0
     dwayne.rect.y = 0
     if os.path.exists("../saves/autosave.pkl",):

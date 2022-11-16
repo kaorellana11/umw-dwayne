@@ -3,11 +3,11 @@ from pygame import sprite
 import pygame
 import os
 
-class Player(pygame.sprite.Sprite):
+class Entity(pygame.sprite.Sprite):
 
 
     
-    def __init__(self, sq_size):
+    def __init__(self, sq_size, cyc_path):
         super().__init__()
 
         self.move_x = 0 # move along X
@@ -25,8 +25,7 @@ class Player(pygame.sprite.Sprite):
 
 
         #gets highest value of a given sprite, used for the range in the loop
-        imgs_path = "../images/walk"
-        dir_list = os.listdir(imgs_path)
+        dir_list = os.listdir(cyc_path)
         self.g_num = 0; #number of sprites per anim cycle
         self.cycle_count = 0 #counts number of anim cycles
 
@@ -49,7 +48,7 @@ class Player(pygame.sprite.Sprite):
             num = i
             if (i == self.g_num+1):
                 num = 0
-            img = pygame.image.load(os.path.join("../images", "walk", "PH_right_" + str(num) + '.png')).convert()
+            img = pygame.image.load(os.path.join(cyc_path, "PH_right_" + str(num) + '.png')).convert()
             img.convert_alpha()
             img.set_colorkey(ALPHA)
             self.x_images.append(img)
@@ -57,7 +56,7 @@ class Player(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
             self.rect = self.image.get_rect()
 
-            img = pygame.image.load(os.path.join("../images", "walk", "PH_down_" + str(num) + '.png')).convert()
+            img = pygame.image.load(os.path.join(cyc_path, "PH_down_" + str(num) + '.png')).convert()
             img.convert_alpha()
             img.set_colorkey(ALPHA)
             self.down_images.append(img)
@@ -65,7 +64,7 @@ class Player(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
             self.rect = self.image.get_rect()
 
-            img = pygame.image.load(os.path.join("../images", "walk", "PH_up_" + str(num) + ".png")).convert()
+            img = pygame.image.load(os.path.join(cyc_path, "PH_up_" + str(num) + ".png")).convert()
             img.convert_alpha()
             img.set_colorkey(ALPHA)
             self.up_images.append(img)
