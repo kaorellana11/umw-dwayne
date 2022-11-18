@@ -2,6 +2,7 @@
 
 .src/
     .__pycache__/
+    draw_bound.py
 
 .saves/
 
