@@ -39,7 +39,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 rectangle = pygame.Rect(400, 400, 30, 30)
 ver_line = pygame.Rect(WIDTH/2, 0, 1, HEIGHT)
 hor_line = pygame.Rect(0, HEIGHT/2, WIDTH, 1)
-screen = pygame.transform.rotate(screen, 60)
+angled_line = pygame.transform.rotate(hor_line, 60)
 line_arr = []
 line_arr.append(ver_line)
 line_arr.append(hor_line)

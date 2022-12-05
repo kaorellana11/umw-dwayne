@@ -40,10 +40,6 @@ class Entity(pygame.sprite.Sprite):
             if (num == 0):
                 self.cycle_count += 1
 
-        
-        print(self.cycle_count)
-        print(self.g_num)
-
         for i in range(self.cycle_count+1):
             num = i
             if (i == self.g_num+1):

@@ -3,11 +3,17 @@ import entity
 import pickle
 import os
 
+def draw_bound(self, surface):
+    global bound_arr
+    bound_arr = []
+
+
+
 if __name__ == "__main__":
         
     WIDTH = HEIGHT = 525
     sq_size = WIDTH/25
-
+    click = True #makes it so that 
     save_path = "..\saves\\"
     
     
@@ -68,6 +74,7 @@ if __name__ == "__main__":
                 running = False
                 entity_list.append(dwayne)
 
+            
         
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT or event.key == ord('a'):
@@ -81,6 +88,7 @@ if __name__ == "__main__":
 
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
                     dwayne.schmoove(0, velocity)
+                
                     
         #stops movement
             if event.type == pygame.KEYUP:
@@ -113,11 +121,5 @@ if __name__ == "__main__":
         npc_list.draw(screen)
         pygame.display.update()
         clock.tick_busy_loop(60)
-
-    
-        
-
-
-
 
 ## Start counter on 9/27/2022  Number of times kevin has put computer into sleep mode : 7
