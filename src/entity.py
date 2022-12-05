@@ -52,24 +52,24 @@ class Entity(pygame.sprite.Sprite):
             img.convert_alpha()
             img.set_colorkey(ALPHA)
             self.x_images.append(img)
+            self.x_images[len(self.x_images) - 1] = pygame.transform.scale(self.x_images[len(self.x_images) - 1], [sq_size, sq_size])
             self.image = self.x_images[0]
-            self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
             self.rect = self.image.get_rect()
 
             img = pygame.image.load(os.path.join(cyc_path, "PH_down_" + str(num) + '.png')).convert()
             img.convert_alpha()
             img.set_colorkey(ALPHA)
             self.down_images.append(img)
+            self.down_images[len(self.down_images) - 1] = pygame.transform.scale(self.down_images[len(self.x_images) - 1], [sq_size, sq_size])
             self.image = self.down_images[0]
-            self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
             self.rect = self.image.get_rect()
 
             img = pygame.image.load(os.path.join(cyc_path, "PH_up_" + str(num) + ".png")).convert()
             img.convert_alpha()
             img.set_colorkey(ALPHA)
             self.up_images.append(img)
+            self.up_images[len(self.up_images) - 1] = pygame.transform.scale(self.up_images[len(self.up_images) - 1], [sq_size, sq_size])
             self.image = self.up_images[0]
-            self.image = pygame.transform.scale(self.image, [sq_size, sq_size])
             self.rect = self.image.get_rect()
 
         
