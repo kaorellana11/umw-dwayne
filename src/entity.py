@@ -32,7 +32,13 @@ class Entity(pygame.sprite.Sprite):
         #finds the amount of files per direction in anim cycle
         for file in dir_list:
             file_str = str(file)
-            num = int(file[-5])
+            
+            try:
+                num = int(file_str[-5])
+            except:
+                print("Curious.")
+            else:
+                pass
 
             if (num > self.g_num):
                 self.g_num = num
