@@ -1,23 +1,22 @@
 import pygame, sys, os, pickle
 import entity
-<<<<<<< Updated upstream
-import pickle
-import GameState
-import os
-=======
->>>>>>> Stashed changes
+
+WIDTH = HEIGHT = 525
+
+def draw_bound(self, surface):
+    global bound_arr
+    bound_arr = []
+
+
 
 if __name__ == "__main__":
-<<<<<<< Updated upstream
-        
-    WIDTH = HEIGHT = 525
-=======
 
     
     
     class GameState():
         def __init__(self):
             self.state = 'main_game'
+            self.keydown = None
 
         def main_game(self):
             for event in pygame.event.get():
@@ -36,40 +35,46 @@ if __name__ == "__main__":
             
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT or event.key == ord('a'):
-                        dwayne.schmoove(-velocity, 0)
+                        pos_dir = False
+                        dwayne.schmoove(pos_dir, velocity, 0)
 
                     if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                        dwayne.schmoove(velocity, 0)
-                        print("Test D")
-
+                        pos_dir = True
+                        dwayne.schmoove(pos_dir, velocity, 0)
+                        
                     if event.key == pygame.K_UP or event.key == ord('w'):
-                        dwayne.schmoove(0, -velocity)
+                        pos_dir = False
+                        dwayne.schmoove(pos_dir, 0, velocity)
 
                     if event.key == pygame.K_DOWN or event.key == ord('s'):
-                        dwayne.schmoove(0, velocity)
+                        pos_dir = True
+                        dwayne.schmoove(pos_dir, 0, velocity)
 
                     if event.key == pygame.K_ESCAPE:
+                        self.keydown = False
                         self.state = "pause"
-                        dwayne.move_x = 0
-                        dwayne.move_y = 0
-                        print("Pause")
+                    self.keydown = True
+                    print("got damn!!!")
                     
                         
             #stops movement
-                if event.type == pygame.KEYUP:
+                if event.type == pygame.KEYUP and self.keydown == True:
                     if event.key == pygame.K_LEFT or event.key == ord('a'):
-                        dwayne.schmoove(velocity, 0)
+                        pos_dir = True
+                        dwayne.schmoove(pos_dir, velocity, 0)
 
                     if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                        dwayne.schmoove(-velocity, 0)
-                        print("release right")
+                        pos_dir = False
+                        dwayne.schmoove(pos_dir, velocity, 0)
 
                     if event.key == pygame.K_UP or event.key == ord('w'):
-                        dwayne.schmoove(0, velocity)
+                        pos_dir = True
+                        dwayne.schmoove(pos_dir, 0, velocity)
 
                     if event.key == pygame.K_DOWN or event.key == ord('s'):
-                        dwayne.schmoove(0, -velocity)
-
+                        pos_dir = False
+                        dwayne.schmoove(pos_dir, 0, velocity)
+                    self.keydown = False
 
             if dwayne.rect.left < 0:
                 dwayne.rect.left = 0
@@ -81,7 +86,8 @@ if __name__ == "__main__":
                 dwayne.rect.bottom = HEIGHT
                         
             
-            print(dwayne.move_x)
+            #print(dwayne.move_x)
+            print(self.keydown)
             screen.blit(background, background_box)
             dwayne.update_pos()
             dwayne_list.draw(screen)
@@ -111,9 +117,8 @@ if __name__ == "__main__":
                 self.main_game()
 
     #WIDTH = HEIGHT = 525
->>>>>>> Stashed changes
     sq_size = WIDTH/25
-
+    
     save_path = "..\saves\\"
     
     
@@ -154,35 +159,23 @@ if __name__ == "__main__":
     man = entity.Entity(sq_size, "../images/walk")
     man.rect.x = man.rect.y = 212
     npc_list = pygame.sprite.Group()
-    npc_list.add(man)
+    #npc_list.add(man)
 
     
 
     
     velocity = 3.5
-    Game = GameState.GameState()
+    pos_dir = True
+ 
+    
+
     #Game Loop
     running = True
-<<<<<<< Updated upstream
-    while running:        
-        Game.i()
-=======
     
 
     while running:
         game_state.state_manager()
->>>>>>> Stashed changes
         clock.tick_busy_loop(60)
         
 
-<<<<<<< Updated upstream
-    
-        
-
-
-
-
-## Start counter on 9/27/2022  Number of times kevin has put computer into sleep mode : 7
-=======
 ## Start counter on 9/27/2022  Number of times kevin has put computer into sleep mode : 8
->>>>>>> Stashed changes

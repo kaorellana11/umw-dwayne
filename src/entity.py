@@ -46,10 +46,6 @@ class Entity(pygame.sprite.Sprite):
             if (num == 0):
                 self.cycle_count += 1
 
-        
-        print(self.cycle_count)
-        print(self.g_num)
-
         for i in range(self.cycle_count+1):
             num = i
             if (i == self.g_num+1):
@@ -81,10 +77,18 @@ class Entity(pygame.sprite.Sprite):
         
 
     #controls movement
-    def schmoove(self, x, y):
-        self.move_x += x
-        self.move_y += y
+    #pos_dir(bool) is true when the sprite should be moving away from the origin
+    #x & y are the velocity at which the sprite should be moving on their respective axis
+    def schmoove(self, pos_dir, x, y):
+        if pos_dir:
+            self.move_x += x
+            self.move_y += y
+        else:
+            self.move_x -= x
+            self.move_y -= y
     
+
+
     def update_pos(self):
         
         #ani decides speed of animation cycle
@@ -95,14 +99,15 @@ class Entity(pygame.sprite.Sprite):
         self.rect.x += self.move_x
         self.rect.y += self.move_y
         
-        
+        #left direction array
         if self.move_x < 0:
             self.frame += 1
             if self.frame > (sprites_num * ani):
                 self.frame = 0
             self.image = pygame.transform.flip(self.x_images[self.frame//ani], True, False)
             self.dir = "l"
-
+        
+        #right direction image array
         if self.move_x > 0:
             self.frame += 1
             if self.frame > (sprites_num * ani):
@@ -110,6 +115,7 @@ class Entity(pygame.sprite.Sprite):
             self.image = self.x_images[self.frame//ani]
             self.dir = "r"
 
+        #up direction image array
         if self.move_y < 0:
             self.frame += 1
             if self.frame > (sprites_num * ani):
@@ -117,6 +123,7 @@ class Entity(pygame.sprite.Sprite):
             self.image = self.up_images[self.frame//ani]
             self.dir = "u"
 
+        #down direction image array
         if self.move_y > 0:
             self.frame += 1
             if self.frame > (sprites_num * ani):
@@ -124,6 +131,7 @@ class Entity(pygame.sprite.Sprite):
             self.image = self.down_images[self.frame//ani]
             self.dir = "d"
 
+        #cycling through images
         if self.move_x == 0 and self.move_y == 0:
             self.frame = 0
             if self.dir == "l":
