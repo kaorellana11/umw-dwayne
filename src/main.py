@@ -16,7 +16,7 @@ if __name__ == "__main__":
     class GameState():
         def __init__(self):
             self.state = 'main_game'
-            self.keydown = None
+            self.keydown = [None, None, None, None]
 
         def main_game(self):
             for event in pygame.event.get():
@@ -35,46 +35,41 @@ if __name__ == "__main__":
             
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT or event.key == ord('a'):
-                        pos_dir = False
-                        dwayne.schmoove(pos_dir, velocity, 0)
-
+                        dwayne.schmoove(-velocity, 0)
+                        self.keydown[0] = True
                     if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                        pos_dir = True
-                        dwayne.schmoove(pos_dir, velocity, 0)
-                        
+                        dwayne.schmoove(velocity, 0)
+                        self.keydown[1] = True
                     if event.key == pygame.K_UP or event.key == ord('w'):
-                        pos_dir = False
-                        dwayne.schmoove(pos_dir, 0, velocity)
-
+                        dwayne.schmoove(0, -velocity)
+                        self.keydown[2] = True
                     if event.key == pygame.K_DOWN or event.key == ord('s'):
-                        pos_dir = True
-                        dwayne.schmoove(pos_dir, 0, velocity)
-
+                        dwayne.schmoove(0, velocity)
+                        self.keydown[3] = True
                     if event.key == pygame.K_ESCAPE:
-                        self.keydown = False
+                        self.keydown = [False, False, False, False]
+                        dwayne.move_x = 0
+                        dwayne.move_y = 0
                         self.state = "pause"
-                    self.keydown = True
+                    #self.keydown = True
                     print("got damn!!!")
                     
                         
             #stops movement
-                if event.type == pygame.KEYUP and self.keydown == True:
-                    if event.key == pygame.K_LEFT or event.key == ord('a'):
-                        pos_dir = True
-                        dwayne.schmoove(pos_dir, velocity, 0)
-
-                    if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                        pos_dir = False
-                        dwayne.schmoove(pos_dir, velocity, 0)
-
-                    if event.key == pygame.K_UP or event.key == ord('w'):
-                        pos_dir = True
-                        dwayne.schmoove(pos_dir, 0, velocity)
-
-                    if event.key == pygame.K_DOWN or event.key == ord('s'):
-                        pos_dir = False
-                        dwayne.schmoove(pos_dir, 0, velocity)
-                    self.keydown = False
+                if event.type == pygame.KEYUP: #and self.keydown == True:
+                    if (event.key == pygame.K_LEFT or event.key == ord('a')) and self.keydown[0]:
+                        dwayne.schmoove(velocity, 0)
+                        self.keydown[0] = False
+                    if (event.key == pygame.K_RIGHT or event.key == ord('d')) and self.keydown[1]:
+                        dwayne.schmoove(-velocity, 0)
+                        self.keydown[1] = False
+                    if (event.key == pygame.K_UP or event.key == ord('w')) and self.keydown[2]:
+                        dwayne.schmoove(0, velocity)
+                        self.keydown[2] = False
+                    if (event.key == pygame.K_DOWN or event.key == ord('s')) and self.keydown[3]:
+                        dwayne.schmoove(0, -velocity)
+                        self.keydown[3] = False
+                                 
 
             if dwayne.rect.left < 0:
                 dwayne.rect.left = 0
@@ -87,7 +82,7 @@ if __name__ == "__main__":
                         
             
             #print(dwayne.move_x)
-            print(self.keydown)
+            #print(self.keydown)
             screen.blit(background, background_box)
             dwayne.update_pos()
             dwayne_list.draw(screen)
@@ -165,7 +160,7 @@ if __name__ == "__main__":
 
     
     velocity = 3.5
-    pos_dir = True
+    
  
     
 

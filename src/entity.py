@@ -79,13 +79,9 @@ class Entity(pygame.sprite.Sprite):
     #controls movement
     #pos_dir(bool) is true when the sprite should be moving away from the origin
     #x & y are the velocity at which the sprite should be moving on their respective axis
-    def schmoove(self, pos_dir, x, y):
-        if pos_dir:
-            self.move_x += x
-            self.move_y += y
-        else:
-            self.move_x -= x
-            self.move_y -= y
+    def schmoove(self, x, y):
+        self.move_x += x
+        self.move_y += y
     
 
 
