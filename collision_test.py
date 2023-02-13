@@ -36,15 +36,14 @@ clock = pygame.time.Clock()
 WIDTH = HEIGHT = 525
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-rectangle = pygame.Rect(400, 400, 30, 30)
+rectangle = pygame.Rect(0, 40, 30, 30)
 ver_line = pygame.Rect(WIDTH/2, 0, 1, HEIGHT)
 hor_line = pygame.Rect(0, HEIGHT/2, WIDTH, 1)
-screen = pygame.transform.rotate(screen, 60)
 line_arr = []
 line_arr.append(ver_line)
 line_arr.append(hor_line)
 
-x_speed = 3
+x_speed = 4
 y_speed = 2
 
 x_swapped = y_swapped = True
@@ -60,5 +59,5 @@ while running:
     pygame.draw.rect(screen, (255, 255, 255), hor_line)
     pygame.draw.circle(screen, (255, 0, 0), rectangle.center, 2) 
     stop_rect()
-    pygame.display.flip()
+    pygame.display.update()
     clock.tick(60)

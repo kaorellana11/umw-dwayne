@@ -1,8 +1,6 @@
 *venv/
 
-src/
-    *__pycache__/
-    *draw_bound.py
+src/__pycache__/
 
 saves/
     *.pkl
