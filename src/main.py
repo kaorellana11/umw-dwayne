@@ -10,13 +10,48 @@ def draw_bound(self, surface):
 
 
 if __name__ == "__main__":
-
-    
-    
     class GameState():
         def __init__(self):
             self.state = 'main_game'
             self.keydown = [None, None, None, None]
+
+        def level_creator(self, lvl_string):
+            #test with lvl_string = to bbb/bbb/bbb
+            row_strings = []
+
+            row_str = ""
+            for s in lvl_string:
+                try:
+                    x = int(s)
+                    row_str += ("*" * x)
+
+                except Exception as e:
+                    if s == "/":
+                        row_strings.append(row_str)
+                        row_str = ""
+                    else:
+                        row_str += s
+            row_strings.append(row_str)
+
+            
+
+            arr_width = len(row_strings[0])
+            arr_height = len(row_strings)
+
+            lvl_array = [ [0]*arr_width for i in range(arr_height)]
+
+            cur_row = 0
+            cur_col = 0
+            for row in lvl_array:
+                for c in row_strings[cur_col]:
+                    if 0 == 1:
+                        pass
+                    elif c == "*":
+                        row.append(None)
+                    cur_row += 1
+                cur_col += 1
+                cur_row = 0
+
 
         def main_game(self):
             for event in pygame.event.get():
@@ -167,9 +202,10 @@ if __name__ == "__main__":
     #Game Loop
     running = True
     
-
+    game_state.level_creator("bbbb/b2b/b2b/bbbb")
     while running:
         game_state.state_manager()
+        
         clock.tick_busy_loop(60)
         
 
