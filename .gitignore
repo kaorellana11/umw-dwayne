@@ -4,5 +4,4 @@ src/
     *__pycache__/
     *draw_bound.py
 
-saves/
-    *.pkl
+saves/*.pkl
