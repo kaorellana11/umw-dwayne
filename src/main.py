@@ -44,7 +44,8 @@ if __name__ == "__main__":
             cur_col = 0
             for row in lvl_array:
                 for c in row_strings[cur_col]:
-                    if 0 == 1:
+                    if c == "b":
+                        
                         pass
                     elif c == "*":
                         row.append(None)
@@ -87,7 +88,6 @@ if __name__ == "__main__":
                         dwayne.move_y = 0
                         self.state = "pause"
                     #self.keydown = True
-                    print("got damn!!!")
                     
                         
             #stops movement
