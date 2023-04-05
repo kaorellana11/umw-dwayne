@@ -2,12 +2,15 @@
 #char "b" indicates a box
 #char "B" indicates a button
 #char "d" indicates where the player "Dwayne" is
+#char "D" indicates where a door is
 #char "t" indicates a tripwire bomb
 #char "e" indicates an exit
 #integers indicate how many solid, unmovable walls are adjacent
+from entity import Entity
+import pygame
 
 
-def level_creator(self, lvl_string, resolution):
+def level_creator(resolution, lvl_string):
     
     row_strings = []
 
@@ -25,12 +28,12 @@ def level_creator(self, lvl_string, resolution):
                 row_str += s
     row_strings.append(row_str)
 
-    
+    print(row_strings)
 
     arr_width = len(row_strings[0])
     arr_height = len(row_strings)
 
-    lvl_array = [ [0]*arr_width for i in range(arr_height)]
+    lvl_array = []
 
     if arr_height < arr_width:
         #resolution[0] = width
@@ -46,26 +49,42 @@ def level_creator(self, lvl_string, resolution):
 
     cur_row = 0
     cur_col = 0
-    for row in lvl_array:
-        for c in row_strings[cur_col]:
+    for row in range(arr_height):
+        lvl_array.append([])
+        for c in row_strings[cur_row]:
+            print("Row = ", row)
             if c == "b":
                 pass
             
+            elif c == "d":
+                #print("d found")
+                lvl_array[row].append(Entity("../images/walk", sq_size, cur_row, cur_col, initial_x, initial_y))
             elif c == "B":
                 pass
             
-            elif c == "d":
+            elif c == "t":
                 pass
 
-            if c == "t":
-                pass
-
-            if c == "e":
+            elif c == "e":
                 pass
 
             elif c == "*":
-                row.append(None)
-            cur_row += 1
-        cur_col += 1
-        cur_row = 0
+                lvl_array[row].append(None)
+            cur_col += 1
+        cur_row += 1
+        cur_col = 0
+    
+    return lvl_array
 
+
+pygame.init()
+clock = pygame.time.Clock()
+
+screen_res = [525, 525]
+screen = pygame.display.set_mode(screen_res)
+
+pygame.display.set_caption("Dwayneson's Pancake Persuit")
+icon = pygame.image.load('..\images\dwayneson.png')
+pygame.display.set_icon(icon)
+
+print(level_creator(screen_res, "4/2d1/4/4"))

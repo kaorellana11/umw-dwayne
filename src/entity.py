@@ -1,42 +1,42 @@
-#from entity import entity
+#new entity file
+
 from pygame import sprite
 import pygame
 import os
 
 class Entity(pygame.sprite.Sprite):
-
-
-    
-    def __init__(self, sq_size, cyc_path):
+    def __init__(self, cyc_path, sq_size, row, col, initial_x, initial_y):
         super().__init__()
-
-        self.move_x = 0 # move along X
-        self.move_y = 0 # move along Y
-        self.frame = 0 # count frames
-
-        sq_size *= 2
-
-        self.x_images = []
-        self.down_images = []
-        self.up_images = []
-        self.dir = "d" #indicates last direction that the sprite moved in
-        
         ALPHA = (0, 0, 0)
+        
+        self.sprites = []
+        self.dir = "d" # indicates last direction that the sprite moved in
 
+        self.row = row
+        self.col = col
 
-        #gets highest value of a given sprite, used for the range in the loop
+        """
         dir_list = os.listdir(cyc_path)
-        self.g_num = 0; #number of sprites per anim cycle
-        self.cycle_count = 0 #counts number of anim cycles
+        self.g_num = 0 #number of sprites
+        self.cyc_count = 0 #counts number of anim cycles
+        """
 
+        for i in range(3):
+            img = pygame.image.load(os.path.join(cyc_path, "PH_" + str(i) +  '.png')).convert()
+            img.convert_alpha()
+            img.set_colorkey(ALPHA)
+            self.sprites.append(img)
+            self.sprites[len(self.sprites) - 1] = pygame.transform.scale(self.sprites[len(self.sprites) - 1], [sq_size, sq_size])
+
+        """
         #finds the amount of files per direction in anim cycle
         for file in dir_list:
             file_str = str(file)
-            
+
             try:
-                num = int(file_str[-5])
+                num = int(file_str[-5]) #-5 is passed b/c thats where the last char in the file name is
             except:
-                print("Curious.")
+                print("Could not convert char to number.")
             else:
                 pass
 
@@ -44,97 +44,46 @@ class Entity(pygame.sprite.Sprite):
                 self.g_num = num
 
             if (num == 0):
-                self.cycle_count += 1
+                cycle_count += 1
+        """
 
-        for i in range(self.cycle_count+1):
-            num = i
-            if (i == self.g_num+1):
-                num = 0
-            img = pygame.image.load(os.path.join(cyc_path, "PH_right_" + str(num) + '.png')).convert()
-            img.convert_alpha()
-            img.set_colorkey(ALPHA)
-            self.x_images.append(img)
-            self.x_images[len(self.x_images) - 1] = pygame.transform.scale(self.x_images[len(self.x_images) - 1], [sq_size, sq_size])
-            self.image = self.x_images[0]
-            self.rect = self.image.get_rect()
 
-            img = pygame.image.load(os.path.join(cyc_path, "PH_down_" + str(num) + '.png')).convert()
-            img.convert_alpha()
-            img.set_colorkey(ALPHA)
-            self.down_images.append(img)
-            self.down_images[len(self.down_images) - 1] = pygame.transform.scale(self.down_images[len(self.x_images) - 1], [sq_size, sq_size])
-            self.image = self.down_images[0]
-            self.rect = self.image.get_rect()
+    def schmoove(self, x_change, y_change, lvl_arr):
+        self.x_change = x_change
+        self.y_change = y_change
+        x2 += self.x + x_change
+        y2 += self.y + y_change
 
-            img = pygame.image.load(os.path.join(cyc_path, "PH_up_" + str(num) + ".png")).convert()
-            img.convert_alpha()
-            img.set_colorkey(ALPHA)
-            self.up_images.append(img)
-            self.up_images[len(self.up_images) - 1] = pygame.transform.scale(self.up_images[len(self.up_images) - 1], [sq_size, sq_size])
-            self.image = self.up_images[0]
-            self.rect = self.image.get_rect()
 
+        if(lvl_arr[x2][y2] == None):
+            lvl_arr[self.x][self.y] = None
+            self.row += x_change
+            self.col += y_change    
+
+        """
+        elif(lvl_arr[x2][y2] == Door):
+            pass
+        elif(lvl_arr[x2][y2] == Box):
+            pass
+        elif(lvl_arr[x2][y2] == Button):
+            pass
+        elif(lvl_arr[x2][y2] == Trip):
+            pass
+        elif(lvl_arr[x2][y2] == Door):
+            pass
+        elif(lvl_arr[x2][y2] == Exit):
+            pass
+        """
         
+    def update_pos(self, initial_x, initial_y):
+        self.rect.x = (self.row * self.sq_size) + initial_x
+        self.rect.y = (self.col * self.sq_size) + initial_y
 
-    #controls movement
-    #pos_dir(bool) is true when the sprite should be moving away from the origin
-    #x & y are the velocity at which the sprite should be moving on their respective axis
-    def schmoove(self, x, y):
-        self.move_x += x
-        self.move_y += y
-    
-
-
-    def update_pos(self):
-        
-        #ani decides speed of animation cycle
-        ani = 20
-
-        sprites_num = len(self.x_images) - 1
-
-        self.rect.x += self.move_x
-        self.rect.y += self.move_y
-        
-        #left direction array
-        if self.move_x < 0:
-            self.frame += 1
-            if self.frame > (sprites_num * ani):
-                self.frame = 0
-            self.image = pygame.transform.flip(self.x_images[self.frame//ani], True, False)
-            self.dir = "l"
-        
-        #right direction image array
-        if self.move_x > 0:
-            self.frame += 1
-            if self.frame > (sprites_num * ani):
-                self.frame = 0
-            self.image = self.x_images[self.frame//ani]
-            self.dir = "r"
-
-        #up direction image array
-        if self.move_y < 0:
-            self.frame += 1
-            if self.frame > (sprites_num * ani):
-                self.frame = 0
-            self.image = self.up_images[self.frame//ani]
-            self.dir = "u"
-
-        #down direction image array
-        if self.move_y > 0:
-            self.frame += 1
-            if self.frame > (sprites_num * ani):
-                self.frame = 0
-            self.image = self.down_images[self.frame//ani]
-            self.dir = "d"
-
-        #cycling through images
-        if self.move_x == 0 and self.move_y == 0:
-            self.frame = 0
-            if self.dir == "l":
-                self.image = pygame.transform.flip(self.x_images[self.frame//ani], True, False)
-            if self.dir =="r":
-                self.image = self.x_images[self.frame//ani]
-            if self.dir == "u":
-                self.image = self.up_images[self.frame//ani]
-            if self.dir == "d":
-                self.image = self.down_images[self.frame//ani]        
+        if self.x_change < 0: 
+            self.image = pygame.transform.flip(self.sprites[1])
+        if self.x_change > 0:
+            self.image = self.sprites[1]
+        if self.y_change < 0:
+            self.image = self.sprites[0]
+        if self.y_change > 0:
+            self.image = self.sprites[2]
