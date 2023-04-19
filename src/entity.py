@@ -15,6 +15,11 @@ class Entity(pygame.sprite.Sprite):
         self.row = row
         self.col = col
 
+        self.initial_x = initial_x
+        self.initial_y = initial_y
+
+        self.sq_size = sq_size
+
         """
         dir_list = os.listdir(cyc_path)
         self.g_num = 0 #number of sprites
@@ -27,7 +32,7 @@ class Entity(pygame.sprite.Sprite):
             img.set_colorkey(ALPHA)
             self.sprites.append(img)
             self.sprites[len(self.sprites) - 1] = pygame.transform.scale(self.sprites[len(self.sprites) - 1], [sq_size, sq_size])
-
+            self.rect = self.image.get_rect()
         """
         #finds the amount of files per direction in anim cycle
         for file in dir_list:
@@ -75,9 +80,9 @@ class Entity(pygame.sprite.Sprite):
             pass
         """
         
-    def update_pos(self, initial_x, initial_y):
-        self.rect.x = (self.row * self.sq_size) + initial_x
-        self.rect.y = (self.col * self.sq_size) + initial_y
+    def update_pos(self):
+        self.rect.x = (self.row * self.sq_size) + self.initial_x
+        self.rect.y = (self.col * self.sq_size) + self.initial_y
 
         if self.x_change < 0: 
             self.image = pygame.transform.flip(self.sprites[1])
@@ -87,3 +92,5 @@ class Entity(pygame.sprite.Sprite):
             self.image = self.sprites[0]
         if self.y_change > 0:
             self.image = self.sprites[2]
+
+            
