@@ -104,6 +104,7 @@ if __name__ == "__main__":
                         print("Main")
 
             screen.fill((255, 255, 255))
+            pygame.display.update()
 
         def state_manager(self):
             if self.state == "pause":
